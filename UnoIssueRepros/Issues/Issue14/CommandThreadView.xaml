@@ -1,0 +1,15 @@
+<UserControl x:Class="UnoIssueRepros.Issues.Issue14.CommandThreadView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <StackPanel Spacing="8">
+    <TextBlock x:Name="IntroText" TextWrapping="WrapWholeWords" />
+    <TextBlock x:Name="UiThreadText" FontFamily="Consolas, Menlo, monospace" />
+
+    <!-- Probe() on the model becomes this command through MVUX code generation. -->
+    <Button Command="{Binding Probe}" Content="Run the generated command" />
+    <TextBlock FontFamily="Consolas, Menlo, monospace"
+               Text="{Binding Report}"
+               TextWrapping="Wrap" />
+  </StackPanel>
+</UserControl>

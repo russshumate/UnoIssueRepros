@@ -1,0 +1,22 @@
+<UserControl x:Class="UnoIssueRepros.Issues.Issue02.RecursiveNode"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="using:UnoIssueRepros.Issues.Issue02">
+
+  <!--
+    The repro: this UserControl uses itself in its own ItemsRepeater.ItemTemplate.
+    WinUI builds the template lazily, per realized item, so recursion is bounded by the data.
+    Uno builds it eagerly when the template is assigned, so constructing one RecursiveNode
+    constructs another, and another, until the stack overflows. No data is ever bound.
+  -->
+  <StackPanel>
+    <TextBlock Text="{Binding Name}" />
+    <ItemsRepeater Margin="16,0,0,0" ItemsSource="{Binding Children}">
+      <ItemsRepeater.ItemTemplate>
+        <DataTemplate>
+          <local:RecursiveNode />
+        </DataTemplate>
+      </ItemsRepeater.ItemTemplate>
+    </ItemsRepeater>
+  </StackPanel>
+</UserControl>

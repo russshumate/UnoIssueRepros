@@ -1,0 +1,10 @@
+{
+  "background_color": "#ffffff",
+  "description": "UnoIssueRepros",
+  "display": "standalone",
+  "name": "UnoIssueRepros",
+  "short_name": "UnoIssueRepros",
+  "start_url": "/index.html",
+  "theme_color": "#ffffff",
+  "scope": "/"
+}

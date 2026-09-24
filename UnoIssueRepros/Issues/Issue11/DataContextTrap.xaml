@@ -1,0 +1,16 @@
+<UserControl x:Class="UnoIssueRepros.Issues.Issue11.DataContextTrap"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <!-- The child's own markup: it binds to Title and expects its own view model. -->
+  <Border Padding="12"
+          BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+          BorderThickness="1"
+          CornerRadius="4">
+    <StackPanel Spacing="4">
+      <TextBlock x:Name="ModeText" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+      <TextBlock FontSize="18" Text="{Binding Title}" />
+      <TextBlock x:Name="ResultText" FontFamily="Consolas, Menlo, monospace" TextWrapping="Wrap" />
+    </StackPanel>
+  </Border>
+</UserControl>

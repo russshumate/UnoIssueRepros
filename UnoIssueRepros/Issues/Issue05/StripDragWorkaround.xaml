@@ -1,0 +1,21 @@
+<UserControl x:Class="UnoIssueRepros.Issues.Issue05.StripDragWorkaround"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <StackPanel Spacing="8">
+    <TextBlock TextWrapping="WrapWholeWords">
+      Handle raw pointer events on the strip, not the items: AddHandler(..., handledEventsToo: true)
+      for press, move and release, start the drag after a 6px threshold, and capture the pointer on the
+      strip. Drag a tab sideways to reorder it.
+    </TextBlock>
+
+    <SelectorBar x:Name="Bar">
+      <SelectorBarItem Text="Alpha" />
+      <SelectorBarItem Text="Beta" />
+      <SelectorBarItem Text="Gamma" />
+      <SelectorBarItem Text="Delta" />
+    </SelectorBar>
+
+    <TextBlock x:Name="StatusText" FontFamily="Consolas, Menlo, monospace" TextWrapping="Wrap" />
+  </StackPanel>
+</UserControl>

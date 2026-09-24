@@ -1,0 +1,39 @@
+<UserControl x:Class="UnoIssueRepros.Issues.Issue09.StoryboardHold"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <UserControl.Resources>
+    <!-- FillBehavior defaults to HoldEnd: after completion the animation keeps Opacity at 0. -->
+    <Storyboard x:Name="FadeOut">
+      <DoubleAnimation Storyboard.TargetName="Box"
+                       Storyboard.TargetProperty="Opacity"
+                       To="0"
+                       Duration="0:0:0.3" />
+    </Storyboard>
+  </UserControl.Resources>
+
+  <StackPanel Spacing="8">
+    <TextBlock x:Name="IntroText" TextWrapping="WrapWholeWords" />
+
+    <!-- Stage: a known background, so a snapshot can tell whether the box is actually drawn. -->
+    <Border x:Name="Stage"
+            Width="200"
+            Height="80"
+            HorizontalAlignment="Left"
+            Background="White">
+      <Rectangle x:Name="Box"
+                 Width="160"
+                 Height="60"
+                 Fill="#0063B1"
+                 RadiusX="6"
+                 RadiusY="6" />
+    </Border>
+
+    <StackPanel Orientation="Horizontal" Spacing="8">
+      <Button Click="OnRun" Content="Run: fade out, then set Opacity = 1" />
+      <Button Click="OnReset" Content="Reset" />
+    </StackPanel>
+    <TextBlock x:Name="ResultText" FontFamily="Consolas, Menlo, monospace" TextWrapping="Wrap" />
+    <TextBlock x:Name="VerdictText" FontFamily="Consolas, Menlo, monospace" TextWrapping="Wrap" />
+  </StackPanel>
+</UserControl>

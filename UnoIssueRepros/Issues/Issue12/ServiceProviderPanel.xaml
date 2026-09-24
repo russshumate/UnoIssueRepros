@@ -1,0 +1,35 @@
+<UserControl x:Class="UnoIssueRepros.Issues.Issue12.ServiceProviderPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="using:UnoIssueRepros.Issues.Issue12"
+             xmlns:mvux="using:Uno.Extensions.Reactive.UI">
+
+  <!-- The code-behind attaches the service provider to this panel, as an app does for its pages. -->
+  <StackPanel Spacing="8">
+    <TextBlock x:Name="IntroText" TextWrapping="WrapWholeWords" />
+
+    <!-- Control case: a probe the code gives a provider, as a control factory does. -->
+    <local:ServiceProbe x:Name="FactoryProbe" Label="Created by code, provider attached" />
+
+    <!-- A probe placed in XAML, nothing attached to it. -->
+    <local:ServiceProbe Label="Placed in XAML, nothing attached" />
+
+    <!-- The repro: a probe inside an MVUX FeedView's ValueTemplate. -->
+    <mvux:FeedView Source="{Binding Message}">
+      <mvux:FeedView.ValueTemplate>
+        <DataTemplate>
+          <local:ServiceProbe Label="Inside a FeedView ValueTemplate" />
+        </DataTemplate>
+      </mvux:FeedView.ValueTemplate>
+      <mvux:FeedView.ErrorTemplate>
+        <DataTemplate>
+          <TextBlock FontFamily="Consolas, Menlo, monospace"
+                     Text="{Binding Error}"
+                     TextWrapping="Wrap" />
+        </DataTemplate>
+      </mvux:FeedView.ErrorTemplate>
+    </mvux:FeedView>
+
+    <TextBlock x:Name="NoteText" TextWrapping="WrapWholeWords" />
+  </StackPanel>
+</UserControl>

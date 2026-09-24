@@ -1,0 +1,9 @@
+<Project ToolsVersion="15.0">
+  <!--
+    Uno packages come from the Uno.Sdk pinned in global.json (implicit packages).
+    See https://aka.platform.uno/using-uno-sdk#implicit-packages
+  -->
+  <ItemGroup>
+    <PackageVersion Include="CommunityToolkit.WinUI.Extensions" Version="8.2.250402" />
+  </ItemGroup>
+</Project>

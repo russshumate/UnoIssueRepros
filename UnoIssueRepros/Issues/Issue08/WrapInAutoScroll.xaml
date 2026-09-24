@@ -1,0 +1,25 @@
+<UserControl x:Class="UnoIssueRepros.Issues.Issue08.WrapInAutoScroll"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <StackPanel Spacing="8">
+    <TextBlock x:Name="WidthText" FontFamily="Consolas, Menlo, monospace" />
+
+    <!--
+      The repro: a wrapping TextBlock inside a ScrollViewer whose vertical bar is Auto, in a container
+      that gets squeezed. When the bar appears it takes width, the text re-wraps shorter, the bar is no
+      longer needed, the text re-wraps taller, and so on. The sweep below walks the width one pixel at
+      a time to land on that band. The code sets VerticalScrollBarVisibility (Auto for the repro,
+      Visible for the workaround).
+    -->
+    <Border x:Name="Squeeze"
+            Width="420"
+            HorizontalAlignment="Left"
+            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+            BorderThickness="1">
+      <ScrollViewer x:Name="Scroller" Height="96">
+        <TextBlock x:Name="WrappingText" Padding="8" TextWrapping="Wrap" />
+      </ScrollViewer>
+    </Border>
+  </StackPanel>
+</UserControl>

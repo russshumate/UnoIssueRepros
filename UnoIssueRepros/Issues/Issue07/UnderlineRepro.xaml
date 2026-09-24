@@ -1,0 +1,67 @@
+<UserControl x:Class="UnoIssueRepros.Issues.Issue07.UnderlineRepro"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <StackPanel Spacing="14">
+    <TextBlock TextWrapping="WrapWholeWords">
+      Each line below should be decorated as its label says. The docs list TextDecorations as supported.
+      On Skia desktop (6.6.42) the underlines render as plain text. The strikethrough line answers the
+      table's follow-up question.
+    </TextBlock>
+
+    <StackPanel Spacing="2">
+      <TextBlock FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="TextBlock TextDecorations=&quot;Underline&quot;" />
+      <TextBlock FontSize="18" Text="This whole line should be underlined" TextDecorations="Underline" />
+    </StackPanel>
+
+    <StackPanel Spacing="2">
+      <TextBlock FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="&lt;Underline&gt;&lt;Run/&gt;&lt;/Underline&gt; span" />
+      <TextBlock FontSize="18">
+        <Run Text="Only " />
+        <Underline>
+          <Run Text="these words" />
+        </Underline>
+        <Run Text=" should be underlined" />
+      </TextBlock>
+    </StackPanel>
+
+    <StackPanel Spacing="2">
+      <TextBlock FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="Run TextDecorations=&quot;Underline&quot;" />
+      <TextBlock FontSize="18">
+        <Run Text="A Run with " />
+        <Run Text="TextDecorations" TextDecorations="Underline" />
+        <Run Text=" set" />
+      </TextBlock>
+    </StackPanel>
+
+    <StackPanel Spacing="2">
+      <TextBlock FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="TextBlock TextDecorations=&quot;Strikethrough&quot;" />
+      <TextBlock FontSize="18" Text="This line should be struck through" TextDecorations="Strikethrough" />
+    </StackPanel>
+
+    <StackPanel Spacing="2">
+      <TextBlock FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="Hyperlink (underlined by default)" />
+      <TextBlock FontSize="18">
+        <Run Text="A " />
+        <Hyperlink NavigateUri="https://platform.uno">hyperlink</Hyperlink>
+        <Run Text=" inline" />
+      </TextBlock>
+    </StackPanel>
+
+    <!-- Pixel check: the same text three times; decorated copies should differ from the plain one. -->
+    <StackPanel Spacing="2">
+      <TextBlock FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="Pixel check (rendered and compared on load)" />
+      <Border x:Name="PlainSample" HorizontalAlignment="Left" Background="White" Padding="4">
+        <TextBlock FontSize="18" Foreground="Black" Text="Sample text" />
+      </Border>
+      <Border x:Name="UnderlineSample" HorizontalAlignment="Left" Background="White" Padding="4">
+        <TextBlock FontSize="18" Foreground="Black" Text="Sample text" TextDecorations="Underline" />
+      </Border>
+      <Border x:Name="StrikeSample" HorizontalAlignment="Left" Background="White" Padding="4">
+        <TextBlock FontSize="18" Foreground="Black" Text="Sample text" TextDecorations="Strikethrough" />
+      </Border>
+      <TextBlock x:Name="UnderlineVerdict" FontFamily="Consolas, Menlo, monospace" TextWrapping="Wrap" />
+      <TextBlock x:Name="StrikeVerdict" FontFamily="Consolas, Menlo, monospace" TextWrapping="Wrap" />
+    </StackPanel>
+  </StackPanel>
+</UserControl>
