@@ -1,0 +1,36 @@
+<UserControl x:Class="UnoIssueRepros.Issues.Issue22.StringFeedView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mvux="using:Uno.Extensions.Reactive.UI">
+
+  <StackPanel Spacing="8">
+    <TextBlock x:Name="IntroText" TextWrapping="WrapWholeWords" />
+
+    <!-- Bound to the model's IFeed<string>. -->
+    <TextBlock FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="FeedView Source=&quot;{Binding Greeting}&quot;, where Greeting is IFeed&lt;string&gt;" />
+    <mvux:FeedView x:Name="StringFeed" Source="{Binding Greeting}">
+      <mvux:FeedView.ValueTemplate>
+        <DataTemplate>
+          <TextBlock FontSize="18" Text="{Binding Data}" />
+        </DataTemplate>
+      </mvux:FeedView.ValueTemplate>
+    </mvux:FeedView>
+
+    <!-- Bound to the model's IFeed<GreetingRecord>. -->
+    <TextBlock FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="FeedView Source=&quot;{Binding WrappedGreeting}&quot;, where WrappedGreeting is IFeed&lt;GreetingRecord&gt;" />
+    <mvux:FeedView x:Name="RecordFeed" Source="{Binding WrappedGreeting}">
+      <mvux:FeedView.ValueTemplate>
+        <DataTemplate>
+          <TextBlock FontSize="18" Text="{Binding Data.Text}" />
+        </DataTemplate>
+      </mvux:FeedView.ValueTemplate>
+    </mvux:FeedView>
+
+    <!-- The value itself binds fine without a FeedView. -->
+    <TextBlock FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="TextBlock Text=&quot;{Binding Greeting}&quot; (no FeedView)" />
+    <TextBlock FontSize="18" Text="{Binding Greeting}" />
+
+    <TextBlock x:Name="ResultText" FontFamily="Consolas, Menlo, monospace" TextWrapping="Wrap" />
+    <TextBlock x:Name="VerdictText" FontFamily="Consolas, Menlo, monospace" TextWrapping="Wrap" />
+  </StackPanel>
+</UserControl>

@@ -72,6 +72,7 @@ Reactive 7.2.3). Two need a person: a drag (5) and a look at the taskbar (6). Ev
 | 14 | Commands run off the UI thread | Reproduced (command on a worker thread) | Marshal UI work through the `DispatcherQueue` |
 | 15 | A selection used as a `Combine` input triggers a refetch | Reproduced (3 selections → 3 extra fetches) | Derive the selected item from the list and the id |
 | 16 | No testing package for 7.x | Checked live against nuget.org | Drive feeds with `SourceContext` + `GetSource` |
+| 22 | A `FeedView` bound to an `IFeed<string>` gets the string, not the feed (found while building 12) | Reproduced | Feed a record, or bind the value without a FeedView |
 
 ### Tooling (written steps)
 
@@ -101,3 +102,7 @@ UnoIssueRepros/
 To add an issue, create `Issues/IssueNN/`, add a Repro and a Workaround control, and add a row to
 [IssueCatalog.cs](UnoIssueRepros/Infrastructure/IssueCatalog.cs). If the repro can take the process down,
 set `ReproMode.ChildProcess`, give it a `CreateChild`, and implement `IScriptedRepro` for a `--auto` run.
+
+## Licence
+
+[MIT](LICENSE).

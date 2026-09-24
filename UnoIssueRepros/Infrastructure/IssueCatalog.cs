@@ -16,6 +16,7 @@ using UnoIssueRepros.Issues.Issue15;
 using UnoIssueRepros.Issues.Issue16;
 using UnoIssueRepros.Issues.Issue20;
 using UnoIssueRepros.Issues.Issue21;
+using UnoIssueRepros.Issues.Issue22;
 using UnoIssueRepros.Issues.Shared;
 
 namespace UnoIssueRepros.Infrastructure;
@@ -229,6 +230,16 @@ public static partial class IssueCatalog
             ReproMode.InProcess,
             () => new TestingPackagePane(),
             Issue16Panes.Workaround),
+
+        new(22, IssueGroup.Mvux,
+            "A FeedView bound to an IFeed<string> gets the string, not the feed",
+            "Found while building issue 12. With [assembly: BindableGenerationTool(3)], which dotnet new unoapp generates, the " +
+            "generated view model exposes an IFeed<string> as a plain string property. A FeedView whose Source binds to it " +
+            "receives the string and shows \"An error occurred.\", with no exception and no log line. A feed of a record works.",
+            "By design for primitives? If so, could FeedView report a non-feed Source clearly instead of its generic error?",
+            ReproMode.InProcess,
+            () => new StringFeedView(workaround: false),
+            () => new StringFeedView(workaround: true)),
 
         // ── Tooling ─────────────────────────────────────────────────────────────────
         new(17, IssueGroup.Tooling,
