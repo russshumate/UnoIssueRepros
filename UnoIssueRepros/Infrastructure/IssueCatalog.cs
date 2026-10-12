@@ -1,4 +1,4 @@
-using UnoIssueRepros.Issues.Issue01;
+﻿using UnoIssueRepros.Issues.Issue01;
 using UnoIssueRepros.Issues.Issue02;
 using UnoIssueRepros.Issues.Issue03;
 using UnoIssueRepros.Issues.Issue04;
@@ -17,6 +17,7 @@ using UnoIssueRepros.Issues.Issue16;
 using UnoIssueRepros.Issues.Issue20;
 using UnoIssueRepros.Issues.Issue21;
 using UnoIssueRepros.Issues.Issue22;
+using UnoIssueRepros.Issues.Issue23;
 using UnoIssueRepros.Issues.Shared;
 
 namespace UnoIssueRepros.Infrastructure;
@@ -131,6 +132,23 @@ public static partial class IssueCatalog
             () => new UnderlineWorkaround())
         {
             Platforms = "Skia desktop (compare with WebAssembly)",
+        },
+
+        new(23, IssueGroup.LikelyBug,
+            "ClearValue on a Foreground set by a Style {ThemeResource} re-resolves it against the application theme, not the element's",
+            "With the in-app theme switch done as documented (RequestedTheme on a root element; the application theme left at " +
+            "its launch value), an element whose Foreground comes from a Style {ThemeResource} resolves correctly after the " +
+            "switch. Give it a local Foreground and remove it with ClearValue, and the Style's {ThemeResource} comes back " +
+            "resolved for the APPLICATION theme while the element's ActualTheme is unchanged. Row highlighting that sets and " +
+            "clears a brush paints the wrong theme as soon as the element theme differs from the app theme " +
+            "(whole WinUI.TableView grids, in our case). Reported as unoplatform/uno#25313.",
+            "Should the re-application of a Style ThemeResource after a local clear resolve against the element's theme, " +
+            "as ApplyVisualStateSetter does?",
+            ReproMode.InProcess,
+            () => new ClearValueThemeRepro(),
+            () => new ClearValueThemeWorkaround())
+        {
+            Platforms = DesktopWindows,
         },
 
         // ── Behaviours that surprised us ────────────────────────────────────────────

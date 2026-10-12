@@ -1,7 +1,7 @@
 # Uno Issue Repros
 
 Minimal, self-contained reproductions of Uno Platform issues we hit while building a production
-line-of-business app on Uno. There is no application code here, only one small Uno 6.6 app with
+line-of-business app on Uno. There is no application code here, only one small Uno 6.7 app with
 a page per issue.
 
 - **Launch page:** lists every issue, grouped the way the issue table groups them.
@@ -13,8 +13,8 @@ a page per issue.
 ## Running it
 
 Requirements: .NET 10 SDK and the Uno Platform workloads (see [Uno's setup guide](https://aka.platform.uno/get-started)).
-The Uno SDK version is pinned in [global.json](global.json) (`Uno.Sdk` 6.6.42, which brings in Uno.WinUI 6.6.184
-and Uno.Extensions.Reactive 7.2.3).
+The Uno SDK version is pinned in [global.json](global.json) (`Uno.Sdk` 6.7.30, which brings in Uno.WinUI 6.7.135
+and Uno.Extensions.Reactive 7.3.6; the verdicts below were identical on Uno.Sdk 6.6.42 / Uno.WinUI 6.6.184 / Reactive 7.2.3).
 
 ```bash
 dotnet run --project UnoIssueRepros -f net10.0-desktop
@@ -38,8 +38,8 @@ WebAssembly head runs everything that doesn't need a second window or a child pr
 
 ## The issues
 
-"Here" is what this app showed on Windows 11 with the pinned versions (Uno.Sdk 6.6.42 / Uno.WinUI 6.6.184,
-Reactive 7.2.3). Two need a person: a drag (5) and a look at the taskbar (6). Everything else was checked by
+"Here" is what this app showed on Windows 11 with the pinned versions (Uno.Sdk 6.7.30 / Uno.WinUI 6.7.135,
+Reactive 7.3.6). Two need a person: a drag (5) and a look at the taskbar (6). Everything else was checked by
 `--probe smoke` or a scripted child run.
 
 ### Likely bugs
@@ -53,6 +53,7 @@ Reactive 7.2.3). Two need a person: a drag (5) and a look at the taskbar (6). Ev
 | 5 | `ItemContainer` (so `SelectorBarItem`) captures the pointer on press, blocking per-item drag | Needs a drag on the page | Raw pointer handlers on the strip |
 | 6 | `IsShownInSwitchers` not implemented: hidden windows still show in the taskbar and Alt+Tab | Check the taskbar (analyzer: Uno0001 not implemented) | Close windows instead of parking them |
 | 7 | `TextDecorations="Underline"` renders nothing on Skia desktop | Reproduced by pixel comparison; Strikethrough is missing too | Border with a bottom edge bound to Foreground |
+| 23 | `ClearValue` on a Foreground set by a Style `{ThemeResource}` re-resolves it against the application theme, not the element's ([unoplatform/uno#25313](https://github.com/unoplatform/uno/issues/25313)) | Reproduced | Swap Styles instead of set + clear; never `ClearValue` a theme-bound Foreground in a `RequestedTheme` subtree |
 
 ### Behaviours that surprised us (docs or guidance)
 
@@ -68,7 +69,7 @@ Reactive 7.2.3). Two need a person: a drag (5) and a look at the taskbar (6). Ev
 
 | # | Issue | Here | Workaround |
 |---|---|---|---|
-| 13 | A second concurrent subscriber never receives emissions (seen on 7.1.1) | Not reproduced on 7.2.3 | One subscription fanned out, or one `SourceContext` each |
+| 13 | A second concurrent subscriber never receives emissions (seen on 7.1.1) | Not reproduced on 7.2.3 or 7.3.6 | One subscription fanned out, or one `SourceContext` each |
 | 14 | Commands run off the UI thread | Reproduced (command on a worker thread) | Marshal UI work through the `DispatcherQueue` |
 | 15 | A selection used as a `Combine` input triggers a refetch | Reproduced (3 selections → 3 extra fetches) | Derive the selected item from the list and the id |
 | 16 | No testing package for 7.x | Checked live against nuget.org | Drive feeds with `SourceContext` + `GetSource` |

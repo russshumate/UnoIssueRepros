@@ -35,7 +35,7 @@ public sealed class SmokeProbe : UserControl
             try
             {
                 _frame.Navigate(typeof(IssuePage), issue.Number);
-                await Task.Delay(issue.Number is 7 or 12 or 22 ? 1600 : 700);
+                await Task.Delay(issue.Number is 23 ? 3500 : issue.Number is 7 or 12 or 22 ? 1600 : 700);
                 var verdicts = TextsUnder(_frame).Where(t => t.StartsWith("REPRODUCED", StringComparison.Ordinal)
                     || t.StartsWith("Not reproduced", StringComparison.Ordinal)
                     || t.Contains("ServiceProvider() returned", StringComparison.Ordinal)
